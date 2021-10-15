@@ -64,9 +64,9 @@ const forumCode = Object.keys(items).reduce((acc, itemType) => {
         ? `${el.itemNameWithForumCode} [color=#BFFFFF]x${el.quantity}[/color]`
         : el.itemNameWithForumCode
     )
-    .join('[br][/br]');
-  return `${acc}[h3][color=#8000BF]${itemType}[/color][/h3][br][/br]${itemsString}[br][/br]`;
-}, `[h3][color=#FFFF40]ArmoryLink[/color][/h3][br][/br][url]${armoryLink}[/url][br][/br]`);
+    .join('\n');
+  return `${acc}[h3][color=#8000BF]${itemType}[/color][/h3]\n${itemsString}\n`;
+}, `[h3][color=#FFFF40]ArmoryLink[/color][/h3]\n[url]${armoryLink}[/url]\n`);
 
 navigator.clipboard.writeText(forumCode).then(() => {
   document.body.prepend(
