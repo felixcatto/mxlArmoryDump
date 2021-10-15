@@ -1,0 +1,25 @@
+{
+  "name": "mxlarmorydump",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "lodash-es": "^4.17.21",
+    "webpack": "^5.58.2",
+    "webpack-cli": "^4.9.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felixcatto/mxlArmoryDump.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felixcatto/mxlArmoryDump/issues"
+  },
+  "homepage": "https://github.com/felixcatto/mxlArmoryDump#readme"
+}
