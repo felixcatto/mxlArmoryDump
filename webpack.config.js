@@ -1,11 +1,12 @@
 const path = require('path');
 
-const isProduction = process.env.NODE_ENV === 'production';
-
 module.exports = {
   mode: 'production',
   entry: {
     index: path.resolve(__dirname, 'index.js'),
+  },
+  output: {
+    path: path.resolve(__dirname, 'compiled'),
   },
   stats: { warnings: false, children: false, modules: false },
 };
