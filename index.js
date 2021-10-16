@@ -2,7 +2,7 @@ import { groupBy, orderBy } from 'lodash-es';
 
 const htmlToElement = html => {
   var template = document.createElement('template');
-  html = html.trim(); // Never return a text node of whitespace as the result
+  html = html.trim();
   template.innerHTML = html;
   return template.content.firstChild;
 };
@@ -69,15 +69,55 @@ const forumCode = Object.keys(items).reduce((acc, itemType) => {
 }, `[h3][color=#FFFF40]ArmoryLink[/color][/h3]\n[url]${armoryLink}[/url]\n`);
 
 navigator.clipboard.writeText(forumCode).then(() => {
-  document.body.prepend(
-    htmlToElement(`
-    <div style="display: flex; justify-content: center; margin-bottom: 20px">
-      <div style="font-size: 24px; padding: 25px; color: #1a237e; background: #a5d6a7; border-radius: 10px; display: inline-block; ">
-        The items has successfully dumped to your clipboard. Use Ctrl+V to paste it.
+  const isPopupExists = document.querySelector('.ipopup');
+  if (!isPopupExists) {
+    document.body.prepend(
+      htmlToElement(`
+      <style>
+        .iwrapper {
+          position: fixed;
+          left: 0;
+          top: 0;
+          width: 100%;
+          padding: 15px;
+          display: flex;
+          justify-content: center;
+          z-index: 100;
+          pointer-events: none;
+          overflow: hidden;
+        }
+        .ipopup {
+          font-size: 24px;
+          padding: 10px;
+          color: #fff;
+          background: #0d6efd;
+          border-radius: 10px;
+          display: inline-block;
+          transition: all 0.3s ease;
+          transform: translate(100vw, 0);
+        }
+        .ipopup_active {
+          transform: translate(0, 0);
+        }
+      </style>
+    `)
+    );
+    document.body.prepend(
+      htmlToElement(`
+      <div class="iwrapper">
+        <div class="ipopup">
+          The items has successfully dumped to your clipboard. Use Ctrl+V to paste it.
+        </div>
       </div>
-    </div>
-  `)
-  );
+    `)
+    );
+  }
+  setTimeout(() => {
+    document.querySelector('.ipopup').classList.add('ipopup_active');
+  }, 0);
+  setTimeout(() => {
+    document.querySelector('.ipopup').classList.remove('ipopup_active');
+  }, 9000);
 });
 
 window.groupBy = groupBy;
