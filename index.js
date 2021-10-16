@@ -18,6 +18,7 @@ const rawItems = trs
     const quantityMatch = rawItemName.match(/.*\[(.+)x\]/);
     const quantity = quantityMatch ? Number(quantityMatch[1]) : 1;
     const [, htmlItemType] = rawItemType.match(/.*\((.+)\)/) || [];
+    const isEth = Boolean(rawItemType.match(/.*\[eth\]/i));
     const isRuneType = ['Rune', 'Essence', 'Runestone'].includes(rawItemType);
     let itemType;
     if (isSetColor) {
@@ -45,6 +46,7 @@ const rawItems = trs
       rawItemType,
       itemType,
       quantity,
+      isEth,
     };
   })
   .filter(el => !excludedRawTypes.includes(el.rawItemType));
@@ -53,17 +55,16 @@ const itemsWithQuantity = Object.entries(groupBy(rawItems, 'itemName')).map(([ke
   ...value[0],
   quantity: Math.max(value[0].quantity, value.length),
 }));
-const orderedItems = orderBy(itemsWithQuantity, ['itemType']);
-const items = groupBy(orderedItems, 'itemType');
+const items = groupBy(itemsWithQuantity, 'itemType');
 const armoryLink = window.location.href;
 const forumCode = Object.keys(items).reduce((acc, itemType) => {
-  const groupItems = items[itemType];
+  const groupItems = itemType === 'MISC' ? items[itemType] : orderBy(items[itemType], ['itemName']);
   const itemsString = groupItems
-    .map(el =>
-      el.quantity > 1
-        ? `${el.itemNameWithForumCode} [color=#BFFFFF]x${el.quantity}[/color]`
-        : el.itemNameWithForumCode
-    )
+    .map(el => {
+      const quantityBadge = el.quantity > 1 ? `[color=#BFFFFF]x${el.quantity}[/color]` : '';
+      const ethBadge = el.isEth ? `[color=#0080FF]eth[/color]` : '';
+      return `${el.itemNameWithForumCode} ${ethBadge} ${quantityBadge}`;
+    })
     .join('\n');
   return `${acc}[h3][color=#8000BF]${itemType}[/color][/h3]\n${itemsString}\n`;
 }, `[h3][color=#FFFF40]ArmoryLink[/color][/h3]\n[url]${armoryLink}[/url]\n`);
@@ -123,6 +124,5 @@ navigator.clipboard.writeText(forumCode).then(() => {
 window.groupBy = groupBy;
 window.rawItems = rawItems;
 window.itemsWithQuantity = itemsWithQuantity;
-window.orderedItems = orderedItems;
 window.items = items;
 window.forumCode = forumCode;
