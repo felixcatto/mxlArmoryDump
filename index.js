@@ -24,7 +24,7 @@ const rawItems = trs
     if (isSetColor) {
       itemType = 'SET';
     } else if (htmlItemType) {
-      itemType = htmlItemType;
+      itemType = htmlItemType.toUpperCase();
     } else if (isRuneType) {
       itemType = 'RUNE';
     } else {
@@ -55,7 +55,7 @@ const itemsWithQuantity = Object.entries(groupBy(rawItems, 'itemName')).map(([ke
   ...value[0],
   quantity: Math.max(value[0].quantity, value.length),
 }));
-const items = groupBy(itemsWithQuantity, 'itemType');
+const items = groupBy(orderBy(itemsWithQuantity, ['itemType']), 'itemType');
 const armoryLink = window.location.href;
 const forumCode = Object.keys(items).reduce((acc, itemType) => {
   const groupItems = itemType === 'MISC' ? items[itemType] : orderBy(items[itemType], ['itemName']);
