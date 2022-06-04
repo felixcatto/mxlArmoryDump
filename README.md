@@ -12,4 +12,9 @@ Select any name, for example "Dump Items". In the URL field paste the code from 
 
 ## Usage
 
-Go to armory page, press "Dump Items" bookmark. It copies forum code with all char items to clipboard. Go to forum and paste it.
+Go to armory page, press "Dump Items" bookmark. It copies forum code with all char items to clipboard. Go to forum and paste it (Ctrl+V).
+
+
+## Result
+
+![alt text](https://raw.githubusercontent.com/felixcatto/mxlArmoryDump/main/img/2022-06-04_10-07.png)
