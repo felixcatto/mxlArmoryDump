@@ -12,7 +12,7 @@ Select any name, for example "Dump Items". In the URL field paste the code from 
 
 ## Usage
 
-Go to armory page, press "Dump Items" bookmark. It copies forum code with all char items to clipboard. Go to forum and paste it (Ctrl+V).
+Go to armory page, press "Dump Items" bookmark. It copies forum code with all char items to clipboard. Go to forum and paste it (Ctrl+V). If you have many mules, you need to do it many times, because it copies char items, but not items from your whole your account.
 
 
 ## Result
